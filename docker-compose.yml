@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  php-apache-environment:
+    container_name: php-apache
+    build:
+      args:
+        user: www
+        uid: 1000
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html
+    ports:
+      - '80:80'
+    networks:
+      - app-network
+
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    volumes:
+      - ./scripts/init-script.sql:/docker-entrypoint-initdb.d/init-script.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: MYSQL_CONSULTR
+      MYSQL_USER: MYSQL_USER
+      MYSQL_PASSWORD: MYSQL_PASSWORD
+    ports:
+      - '9906:3306'
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8080:80'
+    restart: always
+    environment:
+      PMA_HOST: db
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
