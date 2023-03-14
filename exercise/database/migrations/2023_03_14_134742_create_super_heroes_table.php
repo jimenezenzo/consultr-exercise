@@ -24,12 +24,12 @@ class CreateSuperHeroesTable extends Migration
             $table->unsignedInteger('combat');
             $table->foreignId('race_id')->nullable()->constrained();
             $table->string('height_0');
-            $table->string('height_1');
+            $table->string('height_1')->nullable();
             $table->string('weight_0');
             $table->string('weight_1');
             $table->string('eyeColor');
             $table->string('hairColor');
-            $table->foreignId('publisher_id')->constrained();
+            $table->foreignId('publisher_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

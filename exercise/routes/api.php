@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('superhero')->group(function () {
     Route::post('/', 'SuperHeroController@importCsv');
+    Route::get('/', 'SuperHeroController@getSuperheros');
 });

@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
+    libzip-dev \
     zip \
     unzip
 
@@ -19,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install mysqli pdo pdo_mysql && \
+RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring gd zip && \
      docker-php-ext-enable pdo_mysql
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/exercise/public
