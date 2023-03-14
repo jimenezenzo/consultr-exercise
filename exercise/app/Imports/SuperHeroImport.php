@@ -27,7 +27,7 @@ class SuperHeroImport implements ToModel, WithHeadingRow
             'durability' => $row['durability'],
             'power' => $row['power'],
             'combat' => $row['combat'],
-            'race_id' => $this->setByIdRace($row['race']),
+            'race_id' => $this->setByNameRace($row['race']),
             'height_0' => $row['height/0'],
             'height_1' => $row['height/1'],
             'weight_0' => $row['weight/0'],
@@ -38,7 +38,7 @@ class SuperHeroImport implements ToModel, WithHeadingRow
         ]);
     }
 
-    private function setByIdRace($row)
+    private function setByNameRace($row)
     {
         if (empty($row)) return null;
 
